@@ -3,8 +3,23 @@ ktor:
     modules:
       - space.jamestang.ApplicationKt.module
   deployment:
-    port: 8080
+    port: 8718
+
 jwt:
-  domain: "https://jwt-provider-domain/"
-  audience: "jwt-audience"
-  realm: "ktor sample app"
+  domain: "jamestang.space"
+  audience: "kt_rbac"
+  realm: "kt_rbac"
+  secret: "IsThisSecretCorrect?"
+  expire: 60000000
+
+db:
+  url: "jdbc:mysql://192.168.1.5:3306/kt_rbac?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8"
+  user: "root"
+  password: "123456"
+
+
+redis:
+  host: "redis://192.168.1.5:6379"
+  port: 6379
+  db: 0
+  expire: 3000
