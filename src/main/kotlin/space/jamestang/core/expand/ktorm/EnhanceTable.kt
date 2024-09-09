@@ -5,23 +5,22 @@ import org.ktorm.entity.*
 import org.ktorm.schema.*
 import space.jamestang.core.plugins.*
 import space.jamestang.core.util.*
-import java.io.Serializable
 import java.time.*
 
-abstract class EnhanceTable<T : Serializable, E: EnhanceEntity<T, E>>(idType: SqlType<T>, tableName: String, primaryKeyName: String="id"): Table<E>(tableName) {
+abstract class EnhanceTable<E: EnhanceEntity<E>>(tableName: String, primaryKeyName: String="id"): Table<E>(tableName) {
 
-    val id = registerColumn(primaryKeyName, idType).primaryKey().bindTo { it.id }
+    val id = int(primaryKeyName).primaryKey().bindTo { it.id }
     val deleted = boolean("deleted").bindTo { it.deleted }
     val createTime = datetime("create_time").bindTo { it.createTime }
     val updateTime = datetime("update_time").bindTo { it.updateTime }
     val deleteTime = datetime("delete_time").bindTo { it.deleteTime }
 
-    abstract var sequence: EntitySequence<E, EnhanceTable<T, E>>
+    abstract var sequence: EntitySequence<E, EnhanceTable<E>>
 
 
 
     @JvmName("get-sequence")
-    private fun getSequence(): EntitySequence<E, EnhanceTable<T, E>> {
+    private fun getSequence(): EntitySequence<E, EnhanceTable<E>> {
         return sequence
 
     }
@@ -57,7 +56,7 @@ abstract class EnhanceTable<T : Serializable, E: EnhanceEntity<T, E>>(idType: Sq
         return ids
     }
 
-    fun selectById(id: T): E? = sequence.find { it.id eq id and (this.deleted eq false) }
+    fun selectById(id: Int): E? = sequence.find { it.id eq id and (this.deleted eq false) }
 
 
     fun <T: Any> selectByColumn(column: Column<T>, value: T): List<E> {
@@ -110,7 +109,7 @@ abstract class EnhanceTable<T : Serializable, E: EnhanceEntity<T, E>>(idType: Sq
         } == 1
     }
 
-    fun logicDelete(id: T): Boolean{
+    fun logicDelete(id: Int): Boolean{
 
         return DB.mysql.update(this){
             set(this@EnhanceTable.deleteTime, LocalDateTime.now())
@@ -119,7 +118,7 @@ abstract class EnhanceTable<T : Serializable, E: EnhanceEntity<T, E>>(idType: Sq
         } == 1
     }
 
-    fun delete(id: T): Boolean = sequence.removeIf { it.id eq id } == 1
+    fun delete(id: Int): Boolean = sequence.removeIf { it.id eq id } == 1
 
 
 }

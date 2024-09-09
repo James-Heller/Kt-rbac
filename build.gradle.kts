@@ -17,7 +17,7 @@ application {
 }
 
 repositories {
-    mavenCentral()
+    maven(url = "https://maven.aliyun.com/repository/public/")
 }
 
 dependencies {
@@ -28,6 +28,8 @@ dependencies {
     implementation("org.ktorm:ktorm-support-mysql:4.1.0")
     implementation("org.ktorm:ktorm-jackson:4.1.0")
     implementation("org.redisson:redisson:3.34.1")
+
+    implementation("at.favre.lib:bcrypt:0.10.2")
 
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-auth-jvm")
