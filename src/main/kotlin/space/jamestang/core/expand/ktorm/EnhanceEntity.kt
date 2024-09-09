@@ -5,7 +5,7 @@ import java.time.*
 
 interface EnhanceEntity<E: Entity<E>>: Entity<E> {
 
-    var id: Int
+    var id: Int?
     var deleted: Boolean
     var createTime: LocalDateTime
     var updateTime: LocalDateTime

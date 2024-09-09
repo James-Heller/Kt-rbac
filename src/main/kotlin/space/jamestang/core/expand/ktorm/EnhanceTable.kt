@@ -15,7 +15,7 @@ abstract class EnhanceTable<E: EnhanceEntity<E>>(tableName: String, primaryKeyNa
     val updateTime = datetime("update_time").bindTo { it.updateTime }
     val deleteTime = datetime("delete_time").bindTo { it.deleteTime }
 
-    abstract var sequence: EntitySequence<E, EnhanceTable<E>>
+    abstract val sequence: EntitySequence<E, EnhanceTable<E>>
 
 
 

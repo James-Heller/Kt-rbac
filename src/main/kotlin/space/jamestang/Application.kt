@@ -3,6 +3,7 @@ package space.jamestang
 import io.ktor.server.application.*
 import space.jamestang.core.*
 import space.jamestang.core.plugins.*
+import space.jamestang.core.routers.authenticationRoutes
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
@@ -13,7 +14,8 @@ fun Application.module() {
     configureExceptionHandler()
     configureSecurity()
     configureSerialization()
-    configureRouting()
     DB.initDatabase()
     Redis.initialize()
+
+    authenticationRoutes()
 }
