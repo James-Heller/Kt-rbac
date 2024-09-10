@@ -20,6 +20,7 @@ interface Menu : EnhanceEntity<Menu> {
     var parentId: Int?
     var sort: Int
     var icon: String
+    var permission: String
 }
 
 
@@ -32,6 +33,7 @@ object Menus: EnhanceTable<Menu>("rbac_menu"){
     val parentId = int("parent_id").bindTo { it.parentId }
     val sort = int("sort").bindTo { it.sort }
     val icon = varchar("icon").bindTo { it.icon }
+    val permission = varchar("permission").bindTo { it.permission }
 
     override val sequence: EntitySequence<Menu, EnhanceTable<Menu>> get() = DB.mysql.sequenceOf(this)
 }

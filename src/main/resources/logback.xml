@@ -16,4 +16,5 @@
     <logger name="com.zaxxer.hikari.pool.HikariPool" level="INFO" />
     <logger name="com.zaxxer.hikari.pool.PoolBase" level="INFO" />
     <logger name="Database" level="DEBUG" />
+    <logger name="org.redisson" level="INFO" />
 </configuration>

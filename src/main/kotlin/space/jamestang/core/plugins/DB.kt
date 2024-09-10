@@ -1,12 +1,12 @@
 package space.jamestang.core.plugins
 
-import com.zaxxer.hikari.*
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.*
-import io.ktor.util.*
-import org.ktorm.database.*
-import org.ktorm.logging.*
-import org.ktorm.support.mysql.*
-import space.jamestang.core.*
+import org.ktorm.database.Database
+import org.ktorm.logging.Slf4jLoggerAdapter
+import org.ktorm.support.mysql.MySqlDialect
+import space.jamestang.core.Config
 
 object DB  {
     private lateinit var db: Database
