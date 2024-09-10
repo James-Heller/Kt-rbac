@@ -3,6 +3,7 @@ package space.jamestang.core.modules
 import org.ktorm.entity.Entity
 import org.ktorm.entity.EntitySequence
 import org.ktorm.entity.sequenceOf
+import org.ktorm.jackson.json
 import org.ktorm.schema.varchar
 import space.jamestang.core.expand.ktorm.EnhanceEntity
 import space.jamestang.core.expand.ktorm.EnhanceTable
@@ -18,6 +19,7 @@ interface User: EnhanceEntity<User> {
     var phone: String
     var nickname: String
     var avatar: String
+    var roles: List<String>
 }
 
 object Users: EnhanceTable<User>("rbac_users") {
@@ -28,6 +30,7 @@ object Users: EnhanceTable<User>("rbac_users") {
     val password = varchar("password").bindTo { it.password }
     val phone = varchar("phone").bindTo { it.phone }
     val avatar = varchar("avatar").bindTo { it.avatar }
+    val roles = json<List<String>>("roles").bindTo { it.roles }
 
     override val sequence: EntitySequence<User, EnhanceTable<User>>
         get() = DB.mysql.sequenceOf(this)
