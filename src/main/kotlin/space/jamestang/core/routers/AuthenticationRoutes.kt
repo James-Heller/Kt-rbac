@@ -14,6 +14,7 @@ fun Application.authenticationRoutes(){
 
         authenticate {
             get("/auth/info") { AuthenticationHandler.info(call) }
+            get("/auth/menus") { AuthenticationHandler.menus(call) }
         }
     }
 }

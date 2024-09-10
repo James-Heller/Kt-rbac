@@ -5,13 +5,14 @@ import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
+import space.jamestang.core.Config
 
 fun Application.configureSecurity() {
     // Please read the jwt property from the config file if you are using EngineMain
-    val jwtAudience = "jwt-audience"
-    val jwtDomain = "https://jwt-provider-domain/"
-    val jwtRealm = "ktor sample app"
-    val jwtSecret = "secret"
+    val jwtAudience = Config.jwt_audience
+    val jwtDomain = Config.jwt_domain
+    val jwtRealm = Config.jwt_realm
+    val jwtSecret = Config.jwt_secret
     authentication {
         jwt {
             realm = jwtRealm

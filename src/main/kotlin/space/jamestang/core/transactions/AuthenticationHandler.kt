@@ -8,10 +8,13 @@ import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import org.ktorm.dsl.eq
+import org.ktorm.dsl.*
 import space.jamestang.core.Config
+import space.jamestang.core.modules.Menus
+import space.jamestang.core.modules.RoleMenus
 import space.jamestang.core.modules.User
 import space.jamestang.core.modules.Users
+import space.jamestang.core.plugins.DB
 import space.jamestang.core.plugins.TransactionException
 import space.jamestang.core.util.Resp
 import java.util.*
@@ -69,6 +72,20 @@ object AuthenticationHandler {
         }
     }
 
+    suspend fun menus(call: ApplicationCall){
+        val currentUserId = call.principal<JWTPrincipal>()!!.payload.getClaim("id")
+        val user = Users.selectUniqueByColumn(Users.id, currentUserId.asInt())
+        if (user != null){
+            val roles = user.roles
+
+            val data = DB.mysql.from(Menus).leftJoin(RoleMenus, Menus.id eq RoleMenus.menuId).select(Menus.columns).where((RoleMenus.roleId inList roles) and (Menus.deleted eq false)).map(Menus::createEntity)
+
+            call.respond(Resp.data(data))
+        }else{
+            call.respond(Resp.error("user not found"))
+        }
+    }
+
     suspend fun changeUserPassword(call: ApplicationCall) {
 
         val currentUserId = call.principal<JWTPrincipal>()!!.payload.getClaim("id")
@@ -118,7 +135,7 @@ object AuthenticationHandler {
             .withAudience(Config.jwt_audience)
             .withSubject(name)
             .withClaim("id", userId)
-            .withExpiresAt(Date(System.currentTimeMillis() + 60000))
+            .withExpiresAt(Date(System.currentTimeMillis() + 360000))
 
         return builder.sign(Algorithm.HMAC256(Config.jwt_secret))
     }

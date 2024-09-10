@@ -19,7 +19,7 @@ interface User: EnhanceEntity<User> {
     var phone: String
     var nickname: String
     var avatar: String
-    var roles: List<String>
+    var roles: List<Int>
 }
 
 object Users: EnhanceTable<User>("rbac_users") {
@@ -30,7 +30,7 @@ object Users: EnhanceTable<User>("rbac_users") {
     val password = varchar("password").bindTo { it.password }
     val phone = varchar("phone").bindTo { it.phone }
     val avatar = varchar("avatar").bindTo { it.avatar }
-    val roles = json<List<String>>("roles").bindTo { it.roles }
+    val roles = json<List<Int>>("roles").bindTo { it.roles }
 
     override val sequence: EntitySequence<User, EnhanceTable<User>>
         get() = DB.mysql.sequenceOf(this)
