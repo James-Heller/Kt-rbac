@@ -18,6 +18,7 @@ application {
 
 repositories {
     maven(url = "https://maven.aliyun.com/repository/public/")
+    mavenCentral()
 }
 
 dependencies {
@@ -41,4 +42,8 @@ dependencies {
     implementation("io.ktor:ktor-server-config-yaml")
     testImplementation("io.ktor:ktor-server-test-host-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    implementation(kotlin("stdlib-jdk8"))
+}
+kotlin {
+    jvmToolchain(8)
 }

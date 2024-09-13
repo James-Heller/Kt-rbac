@@ -12,7 +12,7 @@ interface RoleMenu : Entity<RoleMenu> {
     var menuId: Int
 }
 
-object RoleMenus : Table<RoleMenu>("role_menu") {
+object RoleMenus : Table<RoleMenu>("rbac_role_menu") {
 
     val roleId = int("role_id").bindTo { it.roleId }
     val menuId = int("menu_id").bindTo { it.menuId }
