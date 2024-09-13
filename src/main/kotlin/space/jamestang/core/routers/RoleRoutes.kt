@@ -58,6 +58,18 @@ fun Application.roleRoutes() {
                     call.respond(Resp.error("更新失败"))
                 }
             }
+
+            put("/role/updateMenus/{id"){
+
+                val id = call.parameters["id"]?.toInt() ?: throw TransactionException("ID不能为空")
+                val menuIds = call.receive<List<Int>>()
+
+                if (Roles.updateRoleMenus(id, menuIds)){
+                    call.respond(Resp.success())
+                }else {
+                    call.respond(Resp.error("更新失败"))
+                }
+            }
         }
     }
 }

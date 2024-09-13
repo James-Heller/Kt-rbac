@@ -22,7 +22,7 @@ fun Application.authenticationRoutes() {
             val password = formData["password"]!!
 
             Users.login(username, password)?.let {
-                call.respond(Resp.data(it))
+                call.respond(Resp.data("Bearer $it"))
             } ?: call.respond(Resp.error("login failed"))
         }
         post("/auth/register") {

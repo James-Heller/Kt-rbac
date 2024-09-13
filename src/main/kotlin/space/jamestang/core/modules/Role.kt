@@ -33,4 +33,12 @@ object Roles : EnhanceTable<Role>("rbac_role") {
             where { RolePermissions.roleId eq roleId }
         } == 1
     }
+
+    fun updateRoleMenus(roleId: Int, menuIds: List<Int>): Boolean{
+
+        return DB.mysql.update(RoleMenus){
+            set(RoleMenus.menuId, menuIds)
+            where { RoleMenus.roleId eq roleId }
+        } == 1
+    }
 }
