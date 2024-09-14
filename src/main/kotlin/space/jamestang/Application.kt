@@ -7,6 +7,7 @@ import space.jamestang.core.routers.authenticationRoutes
 import space.jamestang.core.routers.menuRoutes
 import space.jamestang.core.routers.permissionRoutes
 import space.jamestang.core.routers.roleRoutes
+import space.jamestang.core.routers.userRoutes
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
@@ -22,6 +23,7 @@ fun Application.module() {
 
     authenticationRoutes()
     menuRoutes()
+    userRoutes()
     roleRoutes()
     permissionRoutes()
 }
