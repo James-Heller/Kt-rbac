@@ -36,6 +36,7 @@ interface User : EnhanceEntity<User> {
     var roles: List<Int>
 }
 
+@Suppress("unused")
 object Users : EnhanceTable<User>("rbac_users") {
 
     val username = varchar("username").bindTo { it.username }

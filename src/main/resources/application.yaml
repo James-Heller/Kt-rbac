@@ -13,13 +13,13 @@ jwt:
   expire: 60000000
 
 db:
-  url: "jdbc:mysql://192.168.1.7:3306/kt_rbac?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8"
+  url: "jdbc:mysql://192.168.1.8:3306/kt_rbac?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8"
   user: "root"
   password: "123456"
 
 
 redis:
-  host: "redis://192.168.1.7:6379"
+  host: "redis://192.168.1.8:6379"
   port: 6379
   db: 0
   expire: 3000
